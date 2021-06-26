@@ -1,6 +1,6 @@
 import numpy as np
 
-class OpGenerator:
+class HalfSpinOperator:
     sigma = {}
     z_projector = {}
 
