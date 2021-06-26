@@ -1,6 +1,9 @@
-from generators import *
+import numpy as np
+from generators import OpGenerator
+from hamiltonian import Hamiltonian
 
 N = 3
-sx = generate_operator(sigmaX, N)
-for i in range(N):
-    print(sx[i], '\n')
+op = OpGenerator(N)
+hamiltonian = Hamiltonian(op)
+print(hamiltonian.H0, '\n')
+print(hamiltonian.Hint, '\n')
