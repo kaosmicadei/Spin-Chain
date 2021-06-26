@@ -2,10 +2,12 @@ from generators import HalfSpinOperator
 import numpy as np
 
 class XYModel:
+    """A particular case of the Heisenberg model where Jx=Jy and Jz=0.
+    """
     H0 = 0
     Hint = 0
 
-    def __init__(self, op: HalfSpinOperator, coupling_constant, omega):
+    def __init__(self, op: HalfSpinOperator, coupling_constant=1, omega=1):
         self.dimension = op.dimension
 
         for i in range(1, op.dimension):

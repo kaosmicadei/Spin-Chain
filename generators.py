@@ -1,6 +1,10 @@
 import numpy as np
 
 class HalfSpinOperator:
+    """Creates the 1/2-spin operators
+            σx, σy, σz, σ+, σ-
+    for all the spins in a spin chain with lengh N.
+    """
     sigma = {}
     z_projector = {}
 
@@ -27,7 +31,7 @@ class HalfSpinOperator:
         return chain
 
 
-# Definitions
+# Single operators definitions
 identity = np.eye(2)
 sigma_x = np.array([[0., 1.],
                     [1., 0.]])
