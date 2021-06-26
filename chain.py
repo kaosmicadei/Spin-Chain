@@ -3,7 +3,8 @@ from generators import HalfSpinOperator
 from hamiltonian import XYModel
 
 class Chain:
-    def __init__(self, N, coupling_constant=1, omega=1, beta=1, message_state=None):
+    def __init__(self, N, coupling_constant=1, omega=1, beta=1, message_state=None, dt=0.001):
+        self.dimension = N
         self.__op = HalfSpinOperator(N)
         self.__hamiltonian = XYModel(self.__op, coupling_constant, omega)
 
@@ -21,16 +22,22 @@ class Chain:
         self.__initial_state = np.matmul(message_state, thermal_chain)
         self.__current_state = self.__initial_state
 
-    def state(self, time_step):
-        if time_step == 0:
-            return self.__initial_state
-        pass
+        # Unitary evolution
+        self.__unitary = np.eye(2**N) - 1.j * dt * self.__hamiltonian.Hint
+        self.__unitary_dagger = np.eye(2**N) + 1.j * dt * self.__hamiltonian.Hint
+
+    def state(self):
+        return self.__current_state
+
+    def next(self):
+        self.__current_state = np.matmul(self.__unitary, self.__current_state)
+        self.__current_state = np.matmul(self.__current_state, self.__unitary_dagger)
 
     def bloch_vector(self, spin_index):
         x = np.trace(np.matmul(self.__op.sigma['x'][spin_index], self.__current_state))
         y = np.trace(np.matmul(self.__op.sigma['y'][spin_index], self.__current_state))
         z = np.trace(np.matmul(self.__op.sigma['z'][spin_index], self.__current_state))
-        return (x,y,z)
+        return np.real([x,y,z])
 
     def __len__(self):
-        return self.__op.dimension
+        return self.dimension
