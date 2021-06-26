@@ -1,7 +1,7 @@
 from generators import OpGenerator
 import numpy as np
 
-class Hamiltonian:
+class XYModel:
     H0 = 0
     Hint = 0
 
