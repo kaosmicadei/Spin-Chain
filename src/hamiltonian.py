@@ -17,4 +17,4 @@ class XYModel:
         for i in range(op.dimension-1):
             self.Hint += np.matmul(op.sigma['x'][i], op.sigma['x'][i+1]) + \
                          np.real(np.matmul(op.sigma['y'][i], op.sigma['y'][i+1]))
-        self.Hint *= coupling_constant
+        self.Hint *= coupling_constant / 2
