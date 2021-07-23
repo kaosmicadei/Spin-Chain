@@ -1,4 +1,5 @@
 import numpy as np
+import scipy.linalg as la
 from generators import HalfSpinOperator
 from hamiltonian import XYModel
 
@@ -23,8 +24,8 @@ class Chain:
         self.__current_state = self.__initial_state
 
         # Unitary evolution
-        self.__unitary = np.eye(2**N) - 1.j * dt * self.__hamiltonian.Hint
-        self.__unitary_dagger = np.eye(2**N) + 1.j * dt * self.__hamiltonian.Hint
+        self.__unitary = la.expm(-1.j * dt * self.__hamiltonian.Hint)
+        self.__unitary_dagger = la.expm(1.j * dt * self.__hamiltonian.Hint)
 
     def state(self):
         return self.__current_state
