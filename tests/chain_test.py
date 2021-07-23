@@ -1,4 +1,6 @@
 import numpy as np
+import sys
+sys.path.append(sys.path[0] + '/../src')
 from chain import Chain
 
 rho = np.array([[.7 , -.1j],
